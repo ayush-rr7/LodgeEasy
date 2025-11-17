@@ -55,7 +55,8 @@ exports.getHostHomes = (req, res, next) => {
 };
 
 exports.postAddHome = (req, res, next) => {
-  const { name, price, city, description } =req.body;
+  const { name, price, city, description, maxGuests,homeType,
+  amenities, } =req.body;
   console.log(req.body);
   if(!req.file){
     return res.status(422).send("no image provided");
@@ -70,7 +71,11 @@ exports.postAddHome = (req, res, next) => {
     city,
     imageURL,
     description,
-    usersId
+     maxGuests,
+     homeType,
+  amenities,
+    usersId,
+
   });
   console.log(home);
 
@@ -105,7 +110,8 @@ exports.getBookings=(req,res, next)=>{
 // )};
 
 exports.postEditHome = (req, res, next) => {
-  const { id, name, price, city,  description } =
+  const { id, name, price, city, maxGuests,homeType, description,
+  amenities,} =
     req.body;
     const usersId= req.session.user._id;
     console.log(usersId);
@@ -113,7 +119,10 @@ exports.postEditHome = (req, res, next) => {
     home.name = name;
     home.price = price;
     home.city = city;
+    home.maxGuests=maxGuests;
+    home.amenities=amenities;
     home.description = description;
+    home.homeType=homeType;
     home.usersId=usersId;
     // console.log(req.body);
 if (req.file) {
