@@ -32,7 +32,7 @@
               </div>
              
               <div class="flex gap-2">
-                <a class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-medium transition" href="/homes/<%= home.id %>" >Book</a>
+                <a class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-medium transition" href="/bookings/<%= home._id %> >Book</a>
                <form action="/favourites/delete/<%= home.id %>" method="POST">
                   <button type="submit"class="ml-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition">Delete</button>
                    </form>
