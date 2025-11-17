@@ -16,35 +16,45 @@
         Details of <%= home.name %>
       </h2>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="space-y-8">
+        <!-- Image -->
         <div class="rounded-lg overflow-hidden">
-          <img src="<%= home.imageURL %> " alt="<%= home.name %>" class="w-full h-96 object-cover">
+          <img src="<%= home.imageURL %>" alt="<%= home.name %>" class="w-full h-96 object-cover">
         </div>
 
-        <div class="space-y-6">
-          <div class="border-b pb-4">
-            <h3 class="text-2xl font-semibold mb-2">description</h3>
-            <p class="text-gray-600">
-              <%= home.description %>
-            </p>
+        <!-- Details Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">Description</h3>
+        <p class="text-gray-600"><%= home.description %></p>
+          </div>
+          
+          <div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">Facilities</h3>
+        <p class="text-gray-600"><%= home.amenities %></p>
           </div>
 
-          <div class="border-b pb-4">
-            <h3 class="text-2xl font-semibold mb-2">Location</h3>
-            <p class="text-gray-600">
-              <%= home.city %>
-            </p>
+          <div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">Location</h3>
+        <p class="text-gray-600"><%= home.city %></p>
           </div>
 
-          <div class="border-b pb-4">
-            <h3 class="text-2xl font-semibold mb-2">Price</h3>
-            <p class="text-green-600 text-xl font-bold">₹<%= home.price %>
-            </p>
+          <div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">Home Type</h3>
+        <p class="text-gray-600"><%= home.homeType %></p>
+          </div>
+
+
+          <div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">Max Guests</h3>
+        <p class="text-gray-600"><%= home.maxGuests %></p>
+          </div>
+
+          <div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">Price</h3>
+        <p class="text-green-600 text-2xl font-bold">₹<%= home.price %></p>
           </div>
         </div>
-      </div>
-
-      </div>
       </div>
     </main>
 </body>
