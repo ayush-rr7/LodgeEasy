@@ -1,0 +1,39 @@
+{
+  "name": "mongoose",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js","watch:css": "npx tailwindcss -i ./views/input.css -o ./public/output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.12",
+    
+    "bcryptjs": "^3.0.2",
+    "cloudinary": "^1.30.0",
+    "connect-mongodb-session": "^5.0.0",
+    "crypto": "^1.0.1",
+    "css": "^3.0.0",
+    "dotenv": "^17.2.1",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "express-validator": "^7.2.1",
+    "gh-pages": "^6.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.17.1",
+    "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0",
+    "nodemailer": "^7.0.10",
+    "nodemon": "^3.1.10",
+    "razorpay": "^2.9.6",
+    "tailwindcss": "^4.1.12"
+  },
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^24.3.0"
+  }
+}

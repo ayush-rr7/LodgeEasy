@@ -1,0 +1,107 @@
+
+       
+     
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= pageTitle %> -LodgeEasy</title>
+  <%- include('../partials/headerIcon')%>
+   <link rel="stylesheet" href="/output.css" />
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <%- include('../partials/nav')%>
+      <div id="taskbar">
+        <% if(isLoggedIn){ %>
+        
+       
+        <div class="max-w-6xl mx-auto px-4 py-10">
+      <h1 class="text-md font-bold text-gray-600 mb-2">
+       Here you can contact property owners to book </h1>
+      <h3 class="text-md font-bold text-gray-800 mb-2">
+        Details of property owner :- 
+        <ul>
+       <li>Name: <%= users.firstName %>  <%= users.lastName %></li>
+       <li>Email:<%= users.email %></li>
+       
+       </ul> </h3>
+         <% } %>
+
+  <div class="max-w-5xl mx-auto mt-10 bg-white rounded-2xl shadow-lg overflow-hidden">
+    <!-- Top Section -->
+    <div class="grid md:grid-cols-2">
+      <!-- Home Image -->
+      <div class="h-80 md:h-full"><div class="rounded-lg overflow-hidden">
+          <img src="<%= home.imageURL %> " alt="<%= home.name %>" class="w-full h-96 object-cover">
+        </div> 
+
+        
+
+      <!-- Booking Section -->
+      <div class="p-8 flex flex-col justify-between">
+        <div>
+          <h1 class="text-3xl font-bold mb-2"><%= home.title %></h1>
+          <p class="text-gray-600 mb-4"><%= home.city %></p>
+          <p class="text-xl font-semibold mb-1">₹<span id="pricePerNight"><%= home.price %></span> / night</p>
+          <!-- <p class="text-sm text-gray-500 mb-6">Max Guests: <%= home.maxGuests %></p> -->
+        </div>
+
+        <form action="/booking/create/<%= home._id %>" method="POST" class="space-y-4 border-t border-gray-200 pt-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="checkIn" class="block text-sm font-medium mb-1">Check-in Date</label>
+              <input type="date" id="checkIn" name="checkIn" required class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div>
+              <label for="checkOut" class="block text-sm font-medium mb-1">Check-out Date</label>
+              <input type="date" id="checkOut" name="checkOut" required class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
+            </div>
+          </div>
+
+          <div>
+            <label for="numGuests" class="block text-sm font-medium mb-1">Number of Guests</label>
+            <input type="number" id="numGuests" name="numGuests" min="1" max="<%= home.maxGuests %>" required
+              class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500">
+          </div>
+
+          <div class="mt-4 bg-gray-100 rounded-lg p-4 flex justify-between items-center">
+            <span class="text-lg font-medium">Total Price:</span>
+            <span class="text-2xl font-bold text-green-600">₹<span id="totalPrice">0</span></span>
+          </div>
+
+          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg mt-4 transition">
+            Confirm Booking
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  const checkIn = document.getElementById('checkIn');
+  const checkOut = document.getElementById('checkOut');
+  const numGuests = document.getElementById('numGuests'); // 👈 added this line
+  const totalPriceEl = document.getElementById('totalPrice');
+  const pricePerNight = parseFloat(document.getElementById('pricePerNight').innerText);
+
+  function calculateTotal() {
+    const inDate = new Date(checkIn.value);
+    const outDate = new Date(checkOut.value);
+    const guests = parseInt(numGuests.value) || 1;
+
+    if (!isNaN(inDate) && !isNaN(outDate) && outDate > inDate) {
+      const nights = (outDate - inDate) / (1000 * 60 * 60 * 24);
+      const total = guests * nights * pricePerNight;
+      totalPriceEl.innerText = total.toFixed(2);
+    } else {
+      totalPriceEl.innerText = 0;
+    }
+  }
+
+  checkIn.addEventListener('change', calculateTotal);
+  checkOut.addEventListener('change', calculateTotal);
+  numGuests.addEventListener('input', calculateTotal); // 👈 update total when guests change
+</script>
+
+</body>
+</html>

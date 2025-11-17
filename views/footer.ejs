@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/output.css" />
+</head>
+<body >
+
+  <%- include("partials/nav") %>
+
+
+<div class="max-w-3xl mx-auto p-6   min-h-screen ">
+
+  <% if (page === "about") { %>
+      <h1 class="text-2xl font-bold mb-3">About Us</h1>
+      <p class="text-gray-700">
+        LodgeEasy helps students and travelers find safe and affordable accommodation easily.
+      </p>
+  <% } %>
+
+  <% if (page === "contact") { %>
+      <h1 class="text-2xl font-bold mb-3">Contact Us</h1>
+      <p class="text-gray-700">
+        Email: verify9mail@gmail.com <br>
+        
+      </p>
+  <% } %>
+
+  <% if (page === "terms") { %>
+      <h1 class="text-2xl font-bold mb-3">Terms of Service</h1>
+      <p class="text-gray-700">
+        By using LodgeEasy, you agree to follow our booking and user conduct policies.
+      </p>
+  <% } %>
+
+  <% if (page === "privacy") { %>
+      <h1 class="text-2xl font-bold mb-3">Privacy Policy</h1>
+      <p class="text-gray-700">
+        We value your privacy and never share your personal data without consent.
+      </p>
+  <% } %>
+
+</div>
+
+<%- include("partials/footer") %>
+
+</body>
+</html>

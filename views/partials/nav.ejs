@@ -1,0 +1,82 @@
+<header>
+  <nav class="bg-white shadow-md px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center space-x-6">
+      <a
+        href="/home"
+        class="text-gray-800 font-semibold hover:text-blue-600 transition"
+        >Home</a
+      >
+
+      <% if(isLoggedIn==1){ %> 
+        <% if( user.userType == 'Guest'){ %>
+      <!-- <a
+        href="/bookings"
+        class="text-gray-800 font-semibold hover:text-blue-600 transition"
+        >Bookings</a> -->
+      <a
+        href="/favourites"
+        class="text-gray-800 font-semibold hover:text-blue-600 transition"
+        >Favourites</a
+      >
+      <a  href="/bookingList"
+        class="text-gray-800 font-semibold hover:text-blue-600 transition"
+        >BookingList</a
+      >
+
+      <% } else if(user.userType == 'Host') { %>
+
+      <a  href="/host/home-list"
+        class="text-gray-800 font-semibold hover:text-blue-600 transition"
+        >Home List</a
+      >
+      <a  href="/host/add-home"
+        class="text-gray-800 font-semibold hover:text-blue-600 transition"
+        >Add Home</a
+      >
+      <a  href="/host/bookings"
+        class="text-gray-800 font-semibold hover:text-blue-600 transition"
+        >Bookings</a
+      >
+      <% } %>
+
+      <form action="/logout" method="POST" class="inline">
+        <button
+          type="submit"
+          class="ml-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
+        >
+          Logout
+        </button>
+      </form>
+      </div>
+
+      <div>
+        <a
+          href="/profile"
+          class="flex items-center space-x-2 text-gray-800 font-semibold hover:text-blue-600 transition"
+        >
+          <!-- <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A9 9 0 1112 21a9 9 0 01-6.879-3.196z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg> -->
+
+          <span>👤Profile</span>
+        </a>
+      </div>
+
+      </div>
+      <% } else { %>
+      <a
+        href="/login"
+        class="text-gray-800 font-semibold hover:text-blue-600 transition"
+        >Login</a
+      >
+      <a
+        href="/signup"
+        class="text-gray-800 font-semibold hover:text-blue-600 transition"
+        >Sign Up</a
+      >
+      <% } %>
+
+    </div>
+  </nav>
+</header>

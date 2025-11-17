@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="output.css"/>
+  <title><%= pageTitle %> -LodgeEasy</title>
+  <%- include('../partials/headerIcon')%>
+</head>
+<body>
+   <%- include('../partials/nav')%>
+  <h2>Here are your favourite homes</h2>
+
+  <% if (favouriteHomes.length === 0) { %>
+    <p class="text-center text-gray-500 mt-8">You have no favourite homes yet.</p>
+  <% } else { %>
+    <div class="max-w-6xl mx-auto px-4 py-10">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <% favouriteHomes.forEach( home => { %>                          
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300">
+            <img src="<%= home.imageURL %>" alt="<%= home.name %>" class="h-48 w-full object-cover"/>
+
+            <div class="p-5 flex-1 flex flex-col">
+                <h3 class="text-lg font-semibold text-gray-800 mb-1"> <%= home.name %></h3>
+              
+              <p class="text-sm text-gray-500 mb-2"><%= home.city %> </p>
+             
+              <p class="text-base text-gray-700 mb-4 flex-1"><%= home.description %></p>
+              <div class="flex items-center justify-between mb-4">
+               
+                <span class="text-indigo-600 font-bold text-lg">₹<%= home.price %></span>
+              </div>
+             
+              <div class="flex gap-2">
+                <a class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-medium transition" href="/homes/<%= home.id %>" >Book</a>
+               <form action="/favourites/delete/<%= home.id %>" method="POST">
+                  <button type="submit"class="ml-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition">Delete</button>
+                   </form>
+               
+              </div>
+            </div>
+          </div>     
+        <% }) %>
+      </div>
+    </div>
+  <% } %>     
+</body>
+</html>
