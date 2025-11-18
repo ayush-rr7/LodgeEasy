@@ -10,6 +10,7 @@ const storeRouter = express.Router();
 const storeController = require("../controllers/storeController");
 
 const isAuth = require("../middleware/isAuth");
+const isGuest= require("../middleware/isGuest");
 
 storeRouter.get("/home", storeController.getHomes);
 
@@ -22,13 +23,13 @@ storeRouter.get("/search-results", storeController.getSearchResults);
 
 storeRouter.get("/bookings/:homeId", isAuth, storeController.getBookings);
 storeRouter.post("/booking/create/:homeId",isAuth,  storeController.postBookings);
-storeRouter.get("/bookingList",isAuth,  storeController.getBookingList);
+storeRouter.get("/bookingList",isAuth,storeController.getBookingList);
 
 
-storeRouter.get("/favourites", isAuth, storeController.getFavouriteList);
+storeRouter.get("/favourites", isAuth,isGuest,  storeController.getFavouriteList);
 
 storeRouter.get("/homes/:homeId", storeController.getHomeDetails);
-storeRouter.post("/favourites",isAuth,  storeController.postAddToFavourite);
+storeRouter.post("/favourites",isAuth,isGuest , storeController.postAddToFavourite);
 
 storeRouter.post("/favourites/delete/:homeId", storeController.postRemoveFromFavourite);
 

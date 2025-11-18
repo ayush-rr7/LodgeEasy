@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= pageTitle || 'Error' %> - LodgeEasy</title>
+    <link rel="stylesheet" href="/output.css" />
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <% 
+        // Define default values if variables weren't passed (safety check)
+        const displayStatus = typeof status !== 'undefined' ? status : 500;
+        const displayMessage = message || 'An unexpected problem occurred.';
+        let textColor = 'text-red-600'; // Default for severe errors
+        
+        if (displayStatus === 404) {
+            textColor = 'text-indigo-600'; // Use a softer color for 404
+        }
+    %>
+
+    <div class="max-w-xl mx-auto mt-20 p-8 bg-white rounded-xl shadow-lg text-center">
+        
+        <h1 class="text-6xl font-extrabold <%= textColor %> mb-2">
+            <%= displayStatus %>
+        </h1>
+        
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+            <%= pageTitle %>
+        </h2>
+        
+        <p class="text-lg text-gray-600">
+            <%= displayMessage %>
+        </p>
+
+        <div class="mt-8">
+            <a href="/" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition">
+                Return to Homepage
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -35,16 +35,40 @@ exports.getSearchResults = async (req, res) => {
     console.log("searchIn", req.query);
 
    // ------------- FETCH QUERY VALUES 
-const { city, checkIn, checkOut, guests, minPrice, maxPrice } = req.query;
+const { city, checkIn, checkOut, guests, minPrice, maxPrice,numGuests, homeType,
+  amenities} = req.query;
 
 // ------------------ BUILD HOME FILTER QUERY ----
+
 const query = {};
 
+// City
 if (city) query.city = { $regex: new RegExp(city, "i") };
 
+// Price filter
 if (minPrice || maxPrice) query.price = {};
 if (minPrice) query.price.$gte = parseInt(minPrice);
 if (maxPrice) query.price.$lte = parseInt(maxPrice);
+
+// Amenities filter
+if (amenities) {
+  const selected = Array.isArray(amenities)
+    ? amenities
+    : amenities.split(",");
+  query.amenities = { $all: selected };
+}
+
+// Number of guests
+if (guests) query.numGuests = { $gte: parseInt(guests) };
+
+// Home type
+if (homeType) {
+  const selectedTypes = Array.isArray(homeType)
+    ? homeType
+    : homeType.split(",");
+  query.homeType = { $in: selectedTypes };
+}
+
 
 // ------------------ FETCH HOMES FIRST ------------------
 const homes = await Home.find(query).lean();   // <----- THIS was missing

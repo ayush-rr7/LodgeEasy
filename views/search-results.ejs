@@ -1,141 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= pageTitle %> -LodgeEasy</title>
+  <title>
+    <%= pageTitle %> -LodgeEasy
+  </title>
   <%- include('partials/headerIcon')%>
-  <script src="https://cdn.tailwindcss.com"></script> 
-  <!-- <link rel="stylesheet" href="/output.css" /> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <link rel="stylesheet" href="/output.css" /> -->
 
 </head>
+
 <body>
-   <%- include('partials/nav.ejs') %>
-  <h1 class="text-2xl font-bold mb-4">Search Results</h1>
+  <%- include('partials/nav.ejs') %>
+    <h1 class="text-2xl font-bold mb-4">Search Results</h1>
 
- <div>
+    
 
 
-  <div class="flex flex-col md:flex-row gap-6 px-6 py-8">
+      <div class="flex flex-col md:flex-row gap-6 px-6 py-8">
 
-  <!-- Left Sidebar Filters -->
-  <aside class="w-full md:w-1/4 bg-white rounded-xl shadow-md p-4 space-y-4">
-    <h2 class="text-xl font-semibold mb-2">Filters</h2>
+        <!-- Left Sidebar Filters -->
+        <aside class="w-full md:w-1/4 bg-white rounded-xl shadow-md p-4 space-y-4">
+          <h2 class="text-xl font-semibold mb-2">Filters</h2>
 
-    <!-- City -->
-     <form action="/search-results" method="GET" class=" gap-2 mb-6">
-    <div>
-      <label class="text-sm font-medium">City</label>
-      <input type="text" name="city" value="<%= filters.city || '' %>" form="filterForm" class="w-full px-3 py-2 border rounded-md mt-1 focus:outline-indigo-500">
-    </div>
+          <!-- City -->
+          <form action="/search-results" method="GET" class=" gap-2 mb-6">
+            <div>
+              <label class="text-sm font-medium">City</label>
+              <input type="text" name="city" value="<%= filters.city || '' %>" form="filterForm"
+                class="w-full px-3 py-2 border rounded-md mt-1 focus:outline-indigo-500">
+            </div>
 
-    <!-- Check-out -->
-    <div>
-      <label class="text-sm font-medium">Check-In</label>
-      <input type="date" name="checkIn" value="<%= filters.checkIn || '' %>" form="filterForm" class="w-full px-3 py-2 border rounded-md mt-1 focus:outline-indigo-500">
-    </div>
-    <div>
-      <label class="text-sm font-medium">Check-Out</label>
-      <input type="date" name="checkOut" value="<%= filters.checkOut || '' %>" form="filterForm" class="w-full px-3 py-2 border rounded-md mt-1 focus:outline-indigo-500">
-    </div>
+            <!-- Check-out -->
+            <div>
+              <label class="text-sm font-medium">Check-In</label>
+              <input type="date" name="checkIn" value="<%= filters.checkIn || '' %>" form="filterForm"
+                class="w-full px-3 py-2 border rounded-md mt-1 focus:outline-indigo-500">
+            </div>
+            <div>
+              <label class="text-sm font-medium">Check-Out</label>
+              <input type="date" name="checkOut" value="<%= filters.checkOut || '' %>" form="filterForm"
+                class="w-full px-3 py-2 border rounded-md mt-1 focus:outline-indigo-500">
+            </div>
 
-    <!-- Guests -->
-    <div>
-      <label class="text-sm font-medium">Guests</label>
-      <input type="number" min="1" name="guests" value="<%= filters.guests || '' %>" form="filterForm" class="w-full px-3 py-2 border rounded-md mt-1 focus:outline-indigo-500">
-    </div>
+            <!-- Guests -->
+            <div>
+              <label class="text-sm font-medium">Guests</label>
+              <input type="number" min="1" name="numGuests" value="<%= filters.guests || '' %>" form="filterForm"
+                class="w-full px-3 py-2 border rounded-md mt-1 focus:outline-indigo-500">
+            </div>
 
-    <!-- Price Range -->
-    <div>
-      <label class="text-sm font-medium">Price Range (₹)</label>
-      <div class="flex gap-2 mt-1">
-        <input type="number" name="minPrice" placeholder="Min" value="<%= filters.minPrice || '' %>" form="filterForm" class="w-1/2 px-3 py-2 border rounded-md focus:outline-indigo-500">
-        <input type="number" name="maxPrice" placeholder="Max" value="<%= filters.maxPrice || '' %>" form="filterForm" class="w-1/2 px-3 py-2 border rounded-md focus:outline-indigo-500">
-      </div>
-    </div>
+            <!-- Price Range -->
+            <div>
+              <label class="text-sm font-medium">Price Range (₹)</label>
+              <div class="flex gap-2 mt-1">
+                <input type="number" name="minPrice" placeholder="Min" value="<%= filters.minPrice || '' %>"
+                  form="filterForm" class="w-1/2 px-3 py-2 border rounded-md focus:outline-indigo-500">
+                <input type="number" name="maxPrice" placeholder="Max" value="<%= filters.maxPrice || '' %>"
+                  form="filterForm" class="w-1/2 px-3 py-2 border rounded-md focus:outline-indigo-500">
+              </div>
+            </div>
 
-    <!-- Rating -->
-    <div>
-      <label class="text-sm font-medium">Minimum Rating</label>
-      <select name="minRating" form="filterForm" class="w-full px-3 py-2 border rounded-md mt-1 focus:outline-indigo-500">
-        <option value="">Any</option>
-        <option value="1" <%= filters.minRating == '1' ? 'selected' : '' %>>1⭐+</option>
-        <option value="2" <%= filters.minRating == '2' ? 'selected' : '' %>>2⭐+</option>
-        <option value="3" <%= filters.minRating == '3' ? 'selected' : '' %>>3⭐+</option>
-        <option value="4" <%= filters.minRating == '4' ? 'selected' : '' %>>4⭐+</option>
-        <option value="5" <%= filters.minRating == '5' ? 'selected' : '' %>>5⭐</option>
-      </select>
-    </div>
-
-    <!-- Amenities -->
-    <div>
-      <label class="text-sm font-medium">Amenities</label>
-      <div class="flex flex-col mt-1 space-y-1">
-        <label><input type="checkbox" name="amenities" value="wifi" form="filterForm" <%= filters.amenities?.includes('wifi') ? 'checked' : '' %>> WiFi</label>
-        <label><input type="checkbox" name="amenities" value="pool" form="filterForm" <%= filters.amenities?.includes('pool') ? 'checked' : '' %>> Pool</label>
-        <label><input type="checkbox" name="amenities" value="parking" form="filterForm" <%= filters.amenities?.includes('parking') ? 'checked' : '' %>> Parking</label>
-        <label><input type="checkbox" name="amenities" value="ac" form="filterForm" <%= filters.amenities?.includes('ac') ? 'checked' : '' %>> AC</label>
-      </div>
-    </div>
-
-    <!-- Filter Button -->
-    <div class="mt-4">
-      <button type="submit" form="filterForm" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-semibold">Apply Filters</button>
-    </div>
-
-     <button type="button"
-        onclick="window.location.href='/search-results'"
-        class="px-4 py-2 bg-gray-200 text-black rounded-md border">
-  Clear Filters
-</button>
-  </aside>
-
- 
-
-  </form>
-
-  <!-- Right Content Area: home -->
-  <main class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6">
-
-    <% if (home.length === 0) { %>
-      <p class="text-gray-600 col-span-full">No home found.</p>
-    <% } else { %>
-      <% home.forEach(home => { %>
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300">
-           <img src="<%= home.imageURL %>" alt="<%= home.name %>" class="h-48  w-full object-cover" />
-              <div class=" p-5 flex-1 flex flex-col">
-                <h3 class="text-lg font-semibold text-gray-800 mb-1">
-          <h3 class="font-bold text-lg mb-1"><%= home.name %></h3>
-          <p class="text-sm text-gray-600 mb-1">City: <%= home.city %></p>
-      
-         </div>
-          <!-- <button class="mt-auto bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-semibold">Book Now</button> -->
-          <a  href="/bookings/<%= home._id %>"  class="mt-auto bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-semibold">Book Now</a>
-        </div>
-      <% }) %>
-    <% } %>
-
-  </main>
+            <!-- HomeType -->
+             
+            <div>
+  <label class="text-sm font-medium">Home Type</label>
+  <select name="homeType" form="filterForm" class="w-full px-3 py-2 border rounded-md mt-1 focus:outline-indigo-500">
+    <option value="">Select Home Type</option>
+    <option value="Bunglow" <%= filters.homeType === 'Bunglow' ? 'selected' : '' %>>Bunglow</option>
+    <option value="Apartment" <%= filters.homeType === 'Apartment' ? 'selected' : '' %>>Apartment</option>
+    <option value="Guest House" <%= filters.homeType === 'Guest House' ? 'selected' : '' %>>Guest House</option>
+    <option value="Villa" <%= filters.homeType === 'Villa' ? 'selected' : '' %>>Villa</option>
+    <option value="Hostel" <%= filters.homeType === 'Hostel' ? 'selected' : '' %>>Hostel</option>
+  </select>
 </div>
 
-<!-- Hidden Form for Filters -->
-<form id="filterForm" action="/search-results" method="GET"></form>
-<script>
-  function clearFilters() {
-    const form = document.getElementById("filterForm");
+            <!-- Amenities -->
+            <div>
+              <label class="text-sm font-medium">Amenities</label>
+              <div class="flex flex-col mt-1 space-y-1">
+                <label><input type="checkbox" name="amenities" value="WiFi" form="filterForm"
+                    <%=filters.amenities?.includes('WiFi') ? 'checked' : '' %>> WiFi</label>
+                <label><input type="checkbox" name="amenities" value="Pool" form="filterForm"
+                    <%=filters.amenities?.includes('Pool') ? 'checked' : '' %>> Pool</label>
+                <label><input type="checkbox" name="amenities" value="Parking" form="filterForm"
+                    <%=filters.amenities?.includes('Parking') ? 'checked' : '' %>> Parking</label>
+                <label><input type="checkbox" name="amenities" value="AC" form="filterForm"
+                    <%=filters.amenities?.includes('AC') ? 'checked' : '' %>> AC</label>
+                <label><input type="checkbox" name="amenities" value="Kitchen" form="filterForm"
+                    <%=filters.amenities?.includes('Kitchen') ? 'checked' : '' %>> Kitchen</label>
+              </div>
+            </div>
 
-    // Clear all inputs
-    form.querySelectorAll("input, select").forEach(el => {
-      if (el.type === "date" || el.type === "text" || el.type === "number") {
-        el.value = "";
-      }
-    });
+            <!-- Filter Button -->
+            <div class="mt-4">
+              <button type="submit" form="filterForm"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-semibold">Apply
+                Filters</button>
+            </div>
 
-    // Submit to reset filters
-    form.submit();
-  }
-</script>
+            <button type="button" onclick="window.location.href='/search-results'"
+              class="px-4 py-2 bg-gray-200 text-black rounded-md border">
+              Clear Filters
+            </button>
+        </aside>
+
+
+
+        </form>
+
+        <!-- Right Content Area: home -->
+        <main class="flex-1 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3  gap-6 mx-8 sm:mx=0">
+
+          <% if (home.length===0) { %>
+            <p class="text-gray-600 col-span-full">No home found.</p>
+            <% } else { %>
+              <% home.forEach(home=> { %>
+                <div
+                  class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300 ">
+                  <img src="<%= home.imageURL %>" alt="<%= home.name %>" class="h-48  w-full object-cover" />
+                  <div class=" p-5 flex-1 flex flex-col">
+                    <h3 class="text-lg font-semibold text-gray-800 ">
+                      <h3 class="font-bold text-lg mb-1">
+                        <%= home.name %>
+                      </h3>
+                       
+                      <p class="text-gray-600">
+                        <%= home.city %>
+                      </p>
+
+                        
+                      <p class="text-gray-600">
+                        <%= home.homeType %>
+                      </p>
+                      <div class="flex">
+                      <h3 class="text-lg font-semibold text-gray-800 mb-2"></h3>
+                     <p class="text-gray-600">Amenities : <%= home.amenities %></p>
+                     </div>
+                      
+                  </div>
+                  
+                  <div class="flex justify-around p-2">
+                     <a href="/homes/<%= home._id %> "
+                    class=" w-1/3 bg-indigo-600 hover:bg-indigo-700 text-white text-center  py-2 rounded-lg font-medium transition">Details</a>
+
+                  <a href="/bookings/<%= home._id %>"
+                    class=" w-1/3 mt-auto bg-indigo-600 hover:bg-indigo-700  text-center text-white py-2 rounded-lg font-semibold">Book
+                    Now</a>
+                  </div>
+                  </div>
+                  <% }) %>
+                    <% } %>
+
+        </main>
+        </div>
+
+        <!-- Hidden Form for Filters -->
+        <form id="filterForm" action="/search-results" method="GET"></form>
+        <script>
+          function clearFilters() {
+            const form = document.getElementById("filterForm");
+
+            // Clear all inputs
+            form.querySelectorAll("input, select").forEach(el => {
+              if (el.type === "date" || el.type === "text" || el.type === "number") {
+                el.value = "";
+              }
+            });
+
+            // Submit to reset filters
+            form.submit();
+          }
+        </script>
 
 
 </body>
+
 </html>

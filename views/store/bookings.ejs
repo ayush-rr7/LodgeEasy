@@ -77,31 +77,70 @@
     </div>
   </div>
 
-  <script>
-  const checkIn = document.getElementById('checkIn');
-  const checkOut = document.getElementById('checkOut');
-  const numGuests = document.getElementById('numGuests'); // 👈 added this line
-  const totalPriceEl = document.getElementById('totalPrice');
-  const pricePerNight = parseFloat(document.getElementById('pricePerNight').innerText);
+ <script>
+    // 1. Define all necessary elements, including the form
+    const checkIn = document.getElementById('checkIn');
+    const checkOut = document.getElementById('checkOut');
+    const numGuests = document.getElementById('numGuests');
+    const totalPriceEl = document.getElementById('totalPrice');
+    const pricePerNight = parseFloat(document.getElementById('pricePerNight').innerText);
+    // 💡 CRITICAL FIX: Select the form element
+    const bookingForm = document.querySelector('form[action^="/booking/create/"]'); 
 
-  function calculateTotal() {
-    const inDate = new Date(checkIn.value);
-    const outDate = new Date(checkOut.value);
-    const guests = parseInt(numGuests.value) || 1;
+    function calculateTotal() {
+        const inDate = new Date(checkIn.value);
+        const outDate = new Date(checkOut.value);
+        const guests = parseInt(numGuests.value) || 1;
 
-    if (!isNaN(inDate) && !isNaN(outDate) && outDate > inDate) {
-      const nights = (outDate - inDate) / (1000 * 60 * 60 * 24);
-      const total = guests * nights * pricePerNight;
-      totalPriceEl.innerText = total.toFixed(2);
-    } else {
-      totalPriceEl.innerText = 0;
+        if (checkIn.value && checkOut.value && !isNaN(inDate) && !isNaN(outDate) && outDate > inDate) {
+            const nights = (outDate - inDate) / (1000 * 60 * 60 * 24);
+            const total = guests * nights * pricePerNight;
+            totalPriceEl.innerText = total.toFixed(2);
+        } else {
+            // Set to 0 if dates are invalid or incomplete
+            totalPriceEl.innerText = 0; 
+        }
     }
-  }
 
-  checkIn.addEventListener('change', calculateTotal);
-  checkOut.addEventListener('change', calculateTotal);
-  numGuests.addEventListener('input', calculateTotal); // 👈 update total when guests change
+    // 2. Form Submission Interception (Final Check before sending to backend)
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', function(event) {
+            const inDate = new Date(checkIn.value);
+            const outDate = new Date(checkOut.value);
+            
+            // Check 1: Ensure both dates have values
+            if (!checkIn.value || !checkOut.value) {
+                event.preventDefault(); 
+                alert('Booking Error: Please select both Check-in and Check-out Dates.');
+                return;
+            }
+
+            // Check 2: Check-out must be strictly after Check-in
+            if (outDate <= inDate) {
+                event.preventDefault(); // STOP the form submission
+
+                alert('Booking Error: The Check-out Date must be strictly after the Check-in Date.');
+                checkOut.focus();
+            }
+        });
+    }
+
+    // 3. Attach listeners for changes
+    checkIn.addEventListener('change', calculateTotal);
+    checkOut.addEventListener('change', calculateTotal);
+    numGuests.addEventListener('input', calculateTotal); 
+
+    // Optional UX improvement: Prevent users from picking past dates
+    const today = new Date().toISOString().split('T')[0];
+    checkIn.min = today;
+    checkIn.addEventListener('change', () => {
+        // Automatically set minimum check-out date to check-in date
+        checkOut.min = checkIn.value;
+        calculateTotal();
+    });
+
+    // Initial calculation on page load
+    calculateTotal(); 
 </script>
-
 </body>
 </html>
