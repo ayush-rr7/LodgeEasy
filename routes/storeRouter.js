@@ -22,8 +22,8 @@ storeRouter.get("/search-results", storeController.getSearchResults);
 
 
 storeRouter.get("/bookings/:homeId", isAuth, storeController.getBookings);
-storeRouter.post("/booking/create/:homeId",isAuth,  storeController.postBookings);
-storeRouter.get("/bookingList",isAuth,storeController.getBookingList);
+storeRouter.post("/booking/create/:homeId",isAuth,isGuest,  storeController.postBookings);
+storeRouter.get("/bookingList",isAuth,isGuest,storeController.getBookingList);
 
 
 storeRouter.get("/favourites", isAuth,isGuest,  storeController.getFavouriteList);

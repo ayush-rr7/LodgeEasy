@@ -12,11 +12,13 @@
 </head>
 
 <body class="bg-gray-50 min-h-screen">
+  
   <%- include('partials/nav')%>
   <!-- Header Section -->
-   <div class="w-full  px-6 py-12 flex items-center">
-  <!-- Left: Logo -->
-  <div class="w-40 flex-shrink-0 ">
+   <div class="w-full py-12">
+    <div class="max-w-6xl mx-auto px-2 sm:px-6 flex flex-col sm:flex-row items-start sm:items-center">
+        <div class="w-32 sm:w-40 flex-shrink-0 mb-4 sm:mb-0">
+        
     <img src="../uploads/LodgeEasy.png" alt="LodgeEasy" class="w-full h-auto">
   </div>
 
@@ -32,12 +34,10 @@
   </div>
   
 </div>  
+</div>
 
 
   <!-- serachbar-->
- 
-
-
   <div class="w-full flex justify-center mt-10 px-4">
     <form action="/search-results" method="GET" class="w-full sm:max-w-10/12 md:w-2/3 lg:w-1/2 bg-white rounded-2xl shadow-md px-4 sm:px-6 py-4">
       <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
@@ -89,10 +89,9 @@
       <h2 class="text-xl text-gray-600 mb-8">Here are our registered homes</h2>
 
       <div id="workarea">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mx-">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           <% registeredHomes.forEach(home=> { %>
-            <div
-              class="mx-8 sm:mx-0 bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300">
+            <div  class="max-w-sm mx-auto sm:max-w-none sm:mx-0 bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300">
               <img src="<%= home.imageURL %>" alt="<%= home.name %>" class="h-48 w-full object-cover" />
               <div class="p-5 flex-1 flex flex-col">
                 <h3 class="text-lg font-semibold text-gray-800 mb-1">
