@@ -77,6 +77,7 @@ async function initializeApp() {
     });
 
     //  Configure Session Middleware
+    app.set('trust proxy', 1);
     app.use(
       session({
         secret: process.env.SESSION_SECRET || 'your-secret-key', // Use env variable
