@@ -50,7 +50,7 @@ app.use('/homes/uploads', express.static(path.join(rootDir, 'uploads')));
 // DATABASE CONNECTION & SERVER STARTUP
 async function initializeApp() {
   try {
-    // Step 1: Connect to MongoDB
+    // Step 1:Connect to MongoDB
     console.log('🔄 Connecting to MongoDB...');
     await mongoose.connect(process.env.MONGODB_URI, {
       serverSelectionTimeoutMS: 10000,
@@ -60,7 +60,7 @@ async function initializeApp() {
     });
     console.log('✅ Connected to MongoDB successfully!');
 
-    // Step 2: Initialize Session Store (only after MongoDB is connected)
+    // Initialize Session Store (only after MongoDB is connected)
     const store = new MongoDBStore({
       uri: process.env.MONGODB_URI,
       collection: 'sessions',
@@ -76,7 +76,7 @@ async function initializeApp() {
       console.log('✅ Session store connected to MongoDB');
     });
 
-    // Step 3: Configure Session Middleware
+    //  Configure Session Middleware
     app.use(
       session({
         secret: process.env.SESSION_SECRET || 'your-secret-key', // Use env variable
@@ -91,7 +91,7 @@ async function initializeApp() {
       })
     );
 
-    // Step 4: Local Variables & Session Middleware
+    //  Local Variables & Session Middleware
     app.use((req, res, next) => {
       res.locals.message = req.session.message;
       delete req.session.message;
@@ -99,12 +99,12 @@ async function initializeApp() {
       next();
     });
 
-    // Step 5: Application Routes
+    //  Application Routes
     app.use(authRouter);
     app.use('/', storeRouter);
     app.use('/host', isAuth, isHost, hostRouter);
 
-    // Step 6: 404 Handler (must be after all routes)
+    // 404 Handler (must be after all routes)
     app.use((req, res, next) => {
       res.status(404).render('error', {
         pageTitle: 'Page Not Found',
@@ -113,7 +113,7 @@ async function initializeApp() {
       });
     });
 
-   // Step 7: Global Error Handler (must be last)
+   //  Global Error Handler (must be last)
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   
@@ -126,7 +126,7 @@ app.use((err, req, res, next) => {
   });
 });
  
-// Step 8: Start Server
+//s-8: Start Server
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
 });
