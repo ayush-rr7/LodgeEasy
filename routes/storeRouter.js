@@ -12,10 +12,11 @@ const storeController = require("../controllers/storeController");
 const isAuth = require("../middleware/isAuth");
 const isGuest= require("../middleware/isGuest");
 
+storeRouter.get("/", storeController.visitor);
+storeRouter.get("/dashboard",isAuth, storeController.dashboard);
 storeRouter.get("/home", storeController.getHomes);
 
-storeRouter.get("/", storeController.getIndex);
-// storeRouter.get("/homes", storeController.getHomes);
+// storeRouter.get("/", storeController.getIndex);
 
 storeRouter.get("/search-results", storeController.getSearchResults);
 

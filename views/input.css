@@ -5,3 +5,11 @@
 /* @import "tailwindcss"; */
 /* input.css */
 @import "tailwindcss" source("./**/*.ejs");
+.input-field {
+  @apply w-full px-4 py-2 border border-blue-700 rounded 
+         focus:outline-none focus:ring-2 focus:ring-blue-600 transition;
+}
+
+.primary-btn {
+  @apply w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded shadow transition cursor-pointer;
+}

@@ -29,7 +29,80 @@ exports.getHomes = (req, res, next) => {
     });
   });
 };
+exports.visitor = (req, res, next) => {
+  Home.find().then((registeredHomes) => {
+    res.render('visitor', {
+      registeredHomes: registeredHomes,
+      isLoggedIn:req.isLoggedIn,
+      user:req.session.user,
+      pageTitle: "Welcome to LodgeEasy",
+      // currentPage: "Home",
+    });
+  });
+};
+exports.dashboard = async (req, res, next) => {
+    try {
+        // Verify user is logged in
+        if (!req.session.user || !req.session.user._id) {
+            return res.status(401).render('error', {
+                pageTitle: 'Unauthorized',
+                message: 'Please log in first.',
+                status: 401
+            });
+        }
 
+        const usersId = req.session.user._id;
+
+
+        // listings
+        const listedHomes = await Home.find({ usersId: usersId });
+
+        // earnings
+        let earnings = 0;
+        let bookings=[]
+
+        if (req.session.user.userType === "Host") {
+        // bookings
+         bookings = await Booking.find({ hostId: usersId });
+
+        const hostBookings = await Booking.find({ hostId: usersId });
+        earnings = hostBookings.reduce((sum, b) => {
+                return sum + (b.totalAmount || 0);
+            }, 0);
+        }
+        else {
+            bookings = await Booking.find({ guestId: usersId });
+        }
+        console.log(earnings);
+       
+
+        const exploreHomes = await Home.find().limit(6);
+
+        res.render("dashboard", {
+            user: req.session.user,
+            isLoggedIn: req.isLoggedIn,
+            bookings,
+            listedHomes,
+            earnings,
+            exploreHomes,
+            pageTitle: "Dashboard"
+        });
+
+    } catch (err) {
+        console.error("Dashboard Error:", err.message);
+        
+        // Check if it's a MongoDB connection error
+        if (err.code === 'EREFUSED' || err.name === 'MongooseError') {
+            return res.status(503).render('error', {
+                pageTitle: 'Service Unavailable',
+                message: 'Database connection failed. Please try again later.',
+                status: 503
+            });
+        }
+        
+        next(err);
+    }
+};
 exports.getSearchResults = async (req, res) => {
   try {
     console.log("searchIn", req.query);

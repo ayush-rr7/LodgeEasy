@@ -1,5 +1,5 @@
 <header>
-  <nav class="bg-white shadow-md px-2 sm:px-6 py-3 flex  sm:flex-row items-center justify-between">
+  <nav class="fixed top-0 left-0 w-full z-10 bg-white shadow-md px-2 sm:px-6 py-3 flex  sm:flex-row items-center justify-between">
     
     <div class="flex flex-col sm:flex-row items-center space-y-2  sm:space-x-6 sm:space-y-0 text-sm sm:text-base"> 
       
@@ -9,22 +9,27 @@
       >Home</a>
 
       <% if(isLoggedIn==1){ %> 
+        <a
+            href="/dashboard"
+            class="text-gray-800 font-semibold hover:text-blue-600 transition"
+          >Dashboard</a>
         <% if( user.userType == 'Guest'){ %>
+          
           <a
             href="/favourites"
             class="text-gray-800 font-semibold hover:text-blue-600 transition"
           >Favourites</a>
-          <a  href="/bookingList"
+          <a href="/bookingList"
             class="text-gray-800 font-semibold hover:text-blue-600 transition"
           >BookingList</a>
         <% } else if(user.userType == 'Host') { %>
-          <a  href="/host/home-list"
+          <a href="/host/home-list"
             class="text-gray-800 font-semibold hover:text-blue-600 transition"
-          >Home List</a>
-          <a  href="/host/add-home"
+          >My Listings</a>
+          <a href="/host/add-home"
             class="text-gray-800 font-semibold hover:text-blue-600 transition"
           >Add Home</a>
-          <a  href="/host/bookings"
+          <a href="/host/bookings"
             class="text-gray-800 font-semibold hover:text-blue-600 transition"
           >Bookings</a>
         <% } %>

@@ -4,8 +4,6 @@ const hostRouter = express.Router();
 const {upload}= require("../config/upload");
 const hostController = require("../controllers/hostController");
 
-
-
 hostRouter.get("/add-home", hostController.getAddHome);
 hostRouter.post("/add-home",upload.single('imageURL'), hostController.postAddHome);
 hostRouter.get("/home-list", hostController.getHostHomes);
