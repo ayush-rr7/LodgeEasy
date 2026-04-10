@@ -1,4 +1,38 @@
+# ======================
+# Dependencies
+# ======================
 node_modules/
+
+# ======================
+# Environment Variables
+# ======================
 .env
-uploads/
+.env.*
+
+# ======================
+# Logs
+# ======================
+logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+# ======================
+# OS Files
+# ======================
+.DS_Store
+Thumbs.db
+
+# ======================
+# Editor / IDE
+# ======================
+.vscode/
+.idea/
+
+# ======================
+# Temporary Files
+# ======================
+*.tmp
+*.temp
