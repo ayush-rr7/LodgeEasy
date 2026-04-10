@@ -86,7 +86,8 @@ async function initializeApp() {
         cookie: {
           maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
           httpOnly: true, // Prevent client-side JS from accessing the cookie
-          secure: process.env.NODE_ENV === 'production' // HTTPS only in production
+          secure: process.env.NODE_ENV === 'production', // HTTPS only in production
+           sameSite: 'Lax'
         }
       })
     );
