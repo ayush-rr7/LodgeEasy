@@ -83,6 +83,12 @@ async function initializeApp() {
         resave: false,
         saveUninitialized: false,
         store: store,
+         cookie: {
+          maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+          httpOnly: true, // Prevent client-side JS from accessing the cookie
+          secure: true, // HTTPS only in production
+           sameSite: 'Lax'
+        }
         
       })
     );
