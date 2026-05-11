@@ -1,32 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= pageTitle %> -LodgeEasy</title>
   <%- include('../partials/headerIcon')%>
- <link rel="stylesheet" href="/output.css" />
+  <link rel="stylesheet" href="/output.css" />
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800 min-h-screen">
   <%- include('../partials/nav')%>
-      <div id="taskbar">
-        <% if(isLoggedIn){ %>
-        
-        <div class="max-w-6xl mx-auto px-4 py-10">
+
+  <main id="taskbar" class="max-w-6xl mx-auto px-4 sm:px-6 py-10 pt-28 sm:pt-24">
+    <% if(isLoggedIn){ %>
       <h1 class="text-2xl font-bold text-gray-800 mb-6">Your Bookings</h1>
-         <% } %>  
-  <% registeredHomes.forEach(function(booking) { %>
-    <div class=" bg-gray-100 p-4 mb-4 rounded-lg">
-      <P> You have a bookings</P>
-      <h3>Booking ID: <%= booking._id %></h3>
-      <!-- <p>Home ID: <%= booking.homeId %></p>
-      <p>User ID: <%= booking.guestId %></p> -->
-      <p>Check In : <%= booking.checkIn.toLocaleDateString('en-GB') %></p>
-      <p>Check Out : <%= booking.checkOut.toLocaleDateString('en-GB') %></p>
-      <p>Total Guests : <%= booking.numGuests %></p>
-      <p>Total Price : ₹<%= booking.totalAmount %></p>
-    </div>
-    <% } ); %>
-  
+    <% } %>
+
+    <% if (!registeredHomes || registeredHomes.length === 0) { %>
+      <div class="bg-white rounded-xl shadow p-8 text-center">
+        <p class="text-gray-500">No bookings found.</p>
+      </div>
+    <% } %>
+
+    <% registeredHomes.forEach(function(booking) { %>
+      <div class="bg-white p-5 sm:p-6 mb-5 rounded-xl shadow hover:shadow-lg transition border-l-4 border-green-600">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-4">
+          <div class="min-w-0">
+            <p class="text-sm text-gray-500 font-medium">Booking ID</p>
+            <p class="text-gray-800 font-semibold break-all"><%= booking._id %></p>
+          </div>
+          <span class="self-start bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">Confirmed</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+          <div>
+            <p class="text-gray-500 text-xs font-medium">Check-In</p>
+            <p class="text-gray-800 font-semibold"><%= booking.checkIn.toLocaleDateString('en-GB') %></p>
+          </div>
+          <div>
+            <p class="text-gray-500 text-xs font-medium">Check-Out</p>
+            <p class="text-gray-800 font-semibold"><%= booking.checkOut.toLocaleDateString('en-GB') %></p>
+          </div>
+          <div>
+            <p class="text-gray-500 text-xs font-medium">Guests</p>
+            <p class="text-gray-800 font-semibold"><%= booking.numGuests %></p>
+          </div>
+          <div>
+            <p class="text-gray-500 text-xs font-medium">Total Amount</p>
+            <p class="text-green-600 font-bold">&#8377;<%= booking.totalAmount %></p>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </main>
 </body>
 </html>

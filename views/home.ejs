@@ -15,16 +15,16 @@
   
   <%- include('partials/nav')%>
   <!-- Header Section -->
-   <div class="w-full py-12">
-    <div class="max-w-6xl mx-auto px-2 sm:px-6 flex flex-col sm:flex-row items-start sm:items-center">
+   <div class="w-full py-10 pt-28 sm:pt-24">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center gap-6">
         <div class="w-32 sm:w-40 shrink-0 mb-4 sm:mb-0">
         
     <img src="../uploads/LodgeEasy.png" alt="LodgeEasy" class="w-full h-auto">
   </div>
 
   <!-- Right: Headings -->
-  <div class="flex-1 text-center">
-    <h1 class="text-4xl font-bold text-gray-800">
+  <div class="flex-1 text-center sm:text-left">
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">
       Welcome to LodgeEasy
     </h1>
     <h2 class="text-lg text-gray-600 mt-2">
@@ -38,8 +38,8 @@
 
 
   <!-- serachbar-->
-  <div class="w-full flex justify-center mt-10 px-4">
-    <form action="/search-results" method="GET" class="w-full sm:max-w-10/12 md:w-2/3 lg:w-1/2 bg-white rounded-2xl shadow-md px-4 sm:px-6 py-4">
+  <div class="w-full flex justify-center mt-8 px-4">
+    <form action="/search-results" method="GET" class="w-full md:w-2/3 lg:w-1/2 bg-white rounded-2xl shadow-md px-4 sm:px-6 py-4">
       <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
 
         <!-- City -->
@@ -82,7 +82,6 @@
       </div>
     </form>
   </div>
-</div>
 
   <!-- Registered Homes Section -->
     <div class="max-w-6xl mx-auto px-4 py-10">
@@ -128,7 +127,7 @@
 
   <!-- Content -->
   <div class="p-5">
-    <h3 class="text-lg font-semibold text-gray-800 mb-1">
+    <h3 class="text-lg font-semibold text-gray-800 mb-1 break-words">
       <%= home.name %>
     </h3>
     <p class="text-sm text-gray-500 mb-2">

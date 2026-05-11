@@ -239,6 +239,7 @@ exports.postLogin = async (req, res) => {
 
     req.session.user = user;
     req.session.isLoggedIn = true;
+   
     return req.session.save(() => res.redirect("/dashboard"));
   } catch (error) {
     console.error("Login Error:", error);

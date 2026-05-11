@@ -3,48 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="output.css"/>
+   <link rel="stylesheet" href="/output.css"/>
   <title><%= pageTitle %> -LodgeEasy</title>
   <%- include('../partials/headerIcon')%>
 </head>
-<body>
+<body class="bg-gray-50 min-h-screen">
    <%- include('../partials/nav')%>
-  <h2>Here are your favourite homes</h2>
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 pt-28 sm:pt-24">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8">Favourite Homes</h2>
 
   <% if (favouriteHomes.length === 0) { %>
-    <p class="text-center text-gray-500 mt-8">You have no favourite homes yet.</p>
+    <div class="text-center py-12 px-4 bg-white rounded-xl shadow">
+      <p class="text-gray-500 text-lg">You have no favourite homes yet.</p>
+      <a href="/home" class="mt-4 inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg">Browse Homes</a>
+    </div>
   <% } else { %>
-    <div class="max-w-6xl mx-auto px-4 py-10">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         <% favouriteHomes.forEach( home => { %>                          
           <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300">
             <img src="<%= home.imageURL %>" alt="<%= home.name %>" class="h-48 w-full object-cover"/>
 
             <div class="p-5 flex-1 flex flex-col">
-                <h3 class="text-lg font-semibold text-gray-800 mb-1"> <%= home.name %></h3>
+                <h3 class="text-lg font-semibold text-gray-800 mb-1 break-words"><%= home.name %></h3>
               
-              <p class="text-sm text-gray-500 mb-2"><%= home.city %> </p>
+              <p class="text-sm text-gray-500 mb-2"><%= home.city %></p>
              
-              <p class="text-base text-gray-700 mb-4 flex-1"><%= home.description %></p>
-              <div class="flex items-center justify-between mb-4">
-               
-                <span class="text-indigo-600 font-bold text-lg">₹<%= home.price %></span>
+              <p class="text-sm text-gray-700 mb-4 flex-1 break-words"><%= home.description %></p>
+              <div class="flex items-center justify-between gap-3 mb-4">
+                <span class="text-indigo-600 font-bold text-lg">₹<%= home.price %>/night</span>
               </div>
              
-              <div class="flex gap-2">
-
-                <a class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 rounded-lg font-medium transition"   href="/bookings/<%= home._id %>" >Book Now</a>
+              <div class="flex flex-col sm:flex-row gap-2">
+                <a class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 rounded-lg font-medium transition" href="/bookings/<%= home._id %>">Book Now</a>
                
-               <form action="/favourites/delete/<%= home.id %>" method="POST">
-                  <button type="submit"class="ml-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition">Delete</button>
-                   </form>
-               
+               <form action="/favourites/delete/<%= home.id %>" method="POST" class="flex-1">
+                  <button type="submit" class="w-full bg-red-500 text-white rounded hover:bg-red-600 transition py-2 font-medium">Remove</button>
+               </form>
               </div>
             </div>
           </div>     
         <% }) %>
       </div>
-    </div>
-  <% } %>     
+  <% } %>
+  </main>    
 </body>
 </html>

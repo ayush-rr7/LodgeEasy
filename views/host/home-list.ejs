@@ -10,8 +10,8 @@
 
   <body class="bg-gray-50 min-h-screen">
     <%- include('../partials/nav')%>
-    <div class="max-w-6xl mx-auto px-4 py-10">
-      <h1 class="text-4xl font-bold text-gray-800 mb-2">Welcome to LodgeEasy</h1>
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 pt-28 sm:pt-24">
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">Welcome to LodgeEasy</h1>
       <h2 class="text-xl text-gray-600 mb-8">Here are your listed homes</h2>
 
       <div id="workarea">
@@ -21,32 +21,24 @@
             <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300">
               <img src="<%= home.imageURL %>" alt="<%= home.name %>" class="h-48 w-full object-cover"/>
               <div class="p-5 flex-1 flex flex-col">
-                <h3 class="text-lg font-semibold text-gray-800 mb-1"><%= home.name %></h3>
+                <h3 class="text-lg font-semibold text-gray-800 mb-1 break-words"><%= home.name %></h3>
                 <p class="text-sm text-gray-500 mb-2"><%= home.city %></p>
                 <!-- <p class="text-base text-gray-700 mb-4 flex-1"><%= home.description %></p> -->
                 <div class="flex items-center justify-between mb-4">
                   <span class="text-indigo-600 font-bold text-lg">₹<%= home.price %></span>
                 </div>
-                <div class="flex gap-2">
-                 
-                      <!-- <form action="/host/delete-home  -->
-                       <a href="/host/edit-home/<%=home._id%>?editing=true" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-medium transition">Edit</a>
+                <div class="flex flex-col sm:flex-row gap-2">
+                  <a href="/host/edit-home/<%=home._id%>?editing=true" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 rounded-lg font-medium transition">Edit</a>
 
-                    <form action="/host/delete-home/<%= home.id %>" method="POST">
-                  <button type="submit"class="ml-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition">Delete</button>
-                   </form>
-                  
-                  
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"></svg>
-                      <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/>
-                    </svg>
-                  </button>
+                  <form action="/host/delete-home/<%= home.id %>" method="POST" class="flex-1">
+                    <button type="submit" class="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition font-medium">Delete</button>
+                  </form>
                 </div>
               </div>
             </div>
           <% }) %>
         </div>
       </div>
-    </div>
+    </main>
   </body>
 </html>
