@@ -7,58 +7,72 @@
   <title>
     <%= pageTitle %> -LodgeEasy
   </title>
+
   <%- include('partials/headerIcon')%>
   <link rel="stylesheet" href="/output.css" />
 </head>
 
 <body class="bg-gray-50 min-h-screen">
+
   <%- include('partials/nav.ejs') %>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 pt-28 sm:pt-24">
-    <h1 class="text-3xl font-bold text-gray-800 mb-6">Search Results</h1>
+  <!-- MAIN CONTAINER -->
+  <main class="w-full px-2 sm:px-4 py-8 pt-28 sm:pt-24">
 
-    <div class="flex flex-col md:flex-row gap-6">
-      <aside class="w-full md:w-1/4 bg-white rounded-xl shadow-md p-5 sm:p-6 space-y-5 h-fit md:sticky md:top-24">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6 px-2">
+      Search Results
+    </h1>
+
+    <div class="flex flex-col md:flex-row gap-6 items-start">
+
+      <!-- LEFT FILTER -->
+      <aside class="w-full md:w-1/4 bg-white rounded-xl shadow-md p-5 sm:p-6 space-y-5 
+      sticky top-24 self-start max-h-[calc(100vh-6rem)] overflow-y-auto">
+
         <h2 class="text-xl font-semibold mb-2">Filters</h2>
 
         <form id="filterForm" action="/search-results" method="GET" class="space-y-4">
+
           <div>
             <label class="text-sm font-medium">City</label>
             <input type="text" name="city" value="<%= filters.city || '' %>"
-              class="w-full px-3 py-2 border rounded-md mt-1 focus:outline-indigo-500">
+              class="w-full px-3 py-2 border rounded-md mt-1">
           </div>
 
           <div>
             <label class="text-sm font-medium">Check-In</label>
             <input type="date" name="checkIn" value="<%= filters.checkIn || '' %>"
-              class="w-full px-3 py-2 border rounded-md mt-1 focus:outline-indigo-500">
+              class="w-full px-3 py-2 border rounded-md mt-1">
           </div>
 
           <div>
             <label class="text-sm font-medium">Check-Out</label>
             <input type="date" name="checkOut" value="<%= filters.checkOut || '' %>"
-              class="w-full px-3 py-2 border rounded-md mt-1 focus:outline-indigo-500">
+              class="w-full px-3 py-2 border rounded-md mt-1">
           </div>
 
           <div>
             <label class="text-sm font-medium">Guests</label>
-            <input type="number" min="1" name="numGuests" value="<%= filters.guests || '' %>"
-              class="w-full px-3 py-2 border rounded-md mt-1 focus:outline-indigo-500">
+            <input type="number" name="numGuests" value="<%= filters.guests || '' %>"
+              class="w-full px-3 py-2 border rounded-md mt-1">
           </div>
 
           <div>
-            <label class="text-sm font-medium">Price Range (&#8377;)</label>
+            <label class="text-sm font-medium">Price Range (₹)</label>
             <div class="flex gap-2 mt-1">
-              <input type="number" name="minPrice" placeholder="Min" value="<%= filters.minPrice || '' %>"
-                class="w-1/2 px-3 py-2 border rounded-md focus:outline-indigo-500">
-              <input type="number" name="maxPrice" placeholder="Max" value="<%= filters.maxPrice || '' %>"
-                class="w-1/2 px-3 py-2 border rounded-md focus:outline-indigo-500">
+              <input type="number" name="minPrice" placeholder="Min"
+                value="<%= filters.minPrice || '' %>"
+                class="w-1/2 px-3 py-2 border rounded-md">
+
+              <input type="number" name="maxPrice" placeholder="Max"
+                value="<%= filters.maxPrice || '' %>"
+                class="w-1/2 px-3 py-2 border rounded-md">
             </div>
           </div>
 
           <div>
             <label class="text-sm font-medium">Home Type</label>
-            <select name="homeType" class="w-full px-3 py-2 border rounded-md mt-1 focus:outline-indigo-500">
+            <select name="homeType" class="w-full px-3 py-2 border rounded-md mt-1">
               <option value="">Select Home Type</option>
               <option value="Bunglow" <%= filters.homeType === 'Bunglow' ? 'selected' : '' %>>Bunglow</option>
               <option value="Apartment" <%= filters.homeType === 'Apartment' ? 'selected' : '' %>>Apartment</option>
@@ -71,60 +85,100 @@
           <div>
             <label class="text-sm font-medium">Amenities</label>
             <div class="flex flex-col mt-1 space-y-1 text-sm text-gray-700">
-              <label class="flex items-center gap-2"><input type="checkbox" name="amenities" value="WiFi"
-                  <%=filters.amenities?.includes('WiFi') ? 'checked' : '' %>> WiFi</label>
-              <label class="flex items-center gap-2"><input type="checkbox" name="amenities" value="Pool"
-                  <%=filters.amenities?.includes('Pool') ? 'checked' : '' %>> Pool</label>
-              <label class="flex items-center gap-2"><input type="checkbox" name="amenities" value="Parking"
-                  <%=filters.amenities?.includes('Parking') ? 'checked' : '' %>> Parking</label>
-              <label class="flex items-center gap-2"><input type="checkbox" name="amenities" value="AC"
-                  <%=filters.amenities?.includes('AC') ? 'checked' : '' %>> AC</label>
-              <label class="flex items-center gap-2"><input type="checkbox" name="amenities" value="Kitchen"
-                  <%=filters.amenities?.includes('Kitchen') ? 'checked' : '' %>> Kitchen</label>
+
+              <label class="flex items-center gap-2">
+                <input type="checkbox" name="amenities" value="WiFi"
+                  <%=filters.amenities?.includes('WiFi') ? 'checked' : '' %>> WiFi
+              </label>
+
+              <label class="flex items-center gap-2">
+                <input type="checkbox" name="amenities" value="Pool"
+                  <%=filters.amenities?.includes('Pool') ? 'checked' : '' %>> Pool
+              </label>
+
+              <label class="flex items-center gap-2">
+                <input type="checkbox" name="amenities" value="Parking"
+                  <%=filters.amenities?.includes('Parking') ? 'checked' : '' %>> Parking
+              </label>
+
+              <label class="flex items-center gap-2">
+                <input type="checkbox" name="amenities" value="AC"
+                  <%=filters.amenities?.includes('AC') ? 'checked' : '' %>> AC
+              </label>
+
+              <label class="flex items-center gap-2">
+                <input type="checkbox" name="amenities" value="Kitchen"
+                  <%=filters.amenities?.includes('Kitchen') ? 'checked' : '' %>> Kitchen
+              </label>
+
             </div>
           </div>
 
           <div class="space-y-2 pt-2">
+
             <button type="submit"
-              class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-semibold transition">Apply Filters</button>
+              class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-semibold">
+              Apply Filters
+            </button>
+
             <a href="/search-results"
-              class="block w-full text-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-black rounded-md border transition">
+              class="block w-full text-center bg-gray-200 hover:bg-gray-300 py-2 rounded-lg">
               Clear Filters
             </a>
+
           </div>
+
         </form>
       </aside>
 
+      <!-- RIGHT RESULTS -->
       <section class="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <% if (home.length===0) { %>
-          <div class="bg-white rounded-xl shadow p-8 col-span-full text-center">
-            <p class="text-gray-600">No home found.</p>
+
+        <% if (home.length === 0) { %>
+          <div class="col-span-full text-center bg-white p-8 rounded-xl shadow">
+            No home found.
           </div>
         <% } else { %>
-          <% home.forEach(home=> { %>
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300">
-              <img src="<%= home.imageURL %>" alt="<%= home.name %>" class="h-48 w-full object-cover" />
-              <div class="p-5 flex-1 flex flex-col">
-                <h3 class="font-bold text-lg mb-1 text-gray-800 break-words">
-                  <%= home.name %>
-                </h3>
+
+          <% home.forEach(home => { %>
+
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+
+              <img src="<%= home.imageURL %>" class="h-48 w-full object-cover" />
+
+              <div class="p-5">
+                <h3 class="font-bold text-lg"><%= home.name %></h3>
                 <p class="text-gray-600"><%= home.city %></p>
                 <p class="text-gray-600"><%= home.homeType %></p>
-                <p class="text-gray-600 mt-3 break-words">Amenities: <%= home.amenities %></p>
+                <p class="text-gray-600 mt-2">
+                  Amenities: <%= home.amenities %>
+                </p>
               </div>
 
-              <div class="flex flex-col sm:flex-row gap-2 p-4 pt-0">
+              <div class="flex gap-2 p-4 pt-0">
                 <a href="/homes/<%= home._id %>"
-                  class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 rounded-lg font-medium transition">Details</a>
+                  class="flex-1 bg-indigo-600 text-white text-center py-2 rounded-lg">
+                  Details
+                </a>
+
                 <a href="/bookings/<%= home._id %>"
-                  class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-center text-white py-2 rounded-lg font-semibold transition">Book Now</a>
+                  class="flex-1 bg-green-600 text-white text-center py-2 rounded-lg">
+                  Book
+                </a>
               </div>
+
             </div>
+
           <% }) %>
+
         <% } %>
+
       </section>
+
     </div>
+
   </main>
+
 </body>
 
 </html>
